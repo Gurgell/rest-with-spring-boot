@@ -1,37 +1,38 @@
-package com.example.restwithspringboot.model;
-
-import jakarta.persistence.*;
-
+package com.example.restwithspringboot.data.vo.v2;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
-@Entity
-@Table(name = "person")
-public class Person implements Serializable {
+public class PersonVOV2 implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "first_name", nullable = false, length = 80)
+
     private String firstName;
-    @Column(name = "last_name", nullable = false, length = 80)
+
     private String lastName;
-    @Column(nullable = false, length = 100)
+
     private String address;
-    @Column(nullable = false, length = 6)
+
     private String gender;
-    @Column(nullable = false)
-    private Boolean enabled;
+    private Date birthDay;
 
-    public Person(){}
+    public Date getBirthDay() {
+        return birthDay;
+    }
 
-    public Person(Long id, String firstName, String lastName, String address, String gender, Boolean enabled) {
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public PersonVOV2(){}
+
+    public PersonVOV2(Long id, String firstName, String lastName, String address, String gender, Date birthDay) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.gender = gender;
-        this.enabled = enabled;
+        this.birthDay = birthDay;
     }
 
     public Long getId() {
@@ -74,24 +75,17 @@ public class Person implements Serializable {
         this.gender = gender;
     }
 
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(gender, person.gender) && Objects.equals(enabled, person.enabled);
+        PersonVOV2 that = (PersonVOV2) o;
+        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(gender, that.gender) && Objects.equals(birthDay, that.birthDay);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, gender, enabled);
+        return Objects.hash(id, firstName, lastName, address, gender, birthDay);
     }
+
 }
