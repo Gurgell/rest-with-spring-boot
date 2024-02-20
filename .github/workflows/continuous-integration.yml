@@ -29,11 +29,11 @@ jobs:
         cache: maven
         
     - name: Build Application JAR
-      working-directory: /.rest-with-spring-boot/rest-with-spring-boot
+      working-directory: /.rest-with-spring-boot
       run: mvn clean package
       
     - name: Docker compose Build 
-      working-directory: /.rest-with-spring-boot
+      working-directory: /.
       run: docker compose build
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
