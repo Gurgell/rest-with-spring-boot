@@ -1,4 +1,4 @@
-name: Continuous integration with github actions
+name: Continuous integration with GitHub Actions
 
 on:
   push:
@@ -33,8 +33,11 @@ jobs:
       run: mvn clean package
       
     - name: Docker Compose Build 
-      run: docker-compose build
+      run: docker-compose -f docker-compose.yml build
 
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+    - name: Push to Docker Hub Container Registry
+      run: |
+        docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
+
+        docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:${{ github.run_id }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest
